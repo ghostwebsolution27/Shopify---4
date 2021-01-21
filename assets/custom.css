@@ -1,0 +1,588 @@
+@font-face {
+  font-family: "Font";
+
+  src: url("./HyundaiSansText-Regular.woff") format("woff"), /* Modern Browsers */
+    url("./HyundaiSansText-Regular.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+  
+@font-face {
+  font-family: "HyundaiSansHead-Bold";
+
+  src:
+   /* url("./HyundaiSansHead-Bold.woff") format("woff"),  Modern Browsers */
+    /*url("./HyundaiSansHead-Bold.woff2") format("woff2");  Modern Browsers */
+    
+    url("./hyundaisansheadoffice-bold-webfont.woff") format("woff"),  /* Old Browsers */
+  	url("./hyundaisansheadoffice-bold-webfont.woff2") format("woff2"); /* Modern Browsers */
+ 
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+body{
+  
+  font-family: "Font" !important;
+}
+
+
+.shopify-challenge__container .shopify-challenge__button {
+  font-family: "HyundaiSansHead-Bold" !important;
+}
+
+
+h1, h2, h3, h4, h5, h6, .Heading, .Button, .shopify-payment-button__button--unbranded, #shopify-product-reviews .spr-summary-actions-newreview, #shopify-product-reviews .spr-button-primary:not(input), #shopify-product-reviews input.spr-button-primary, #shopify-product-reviews .spr-pagination-prev>a, #shopify-product-reviews .spr-pagination-next>a {
+  
+    font-family: "HyundaiSansHead-Bold" !important;
+}
+
+.shopify-section.shopify-section--slideshow {
+  background-color: #043266;
+}
+
+.Slideshow__ImageContainer {
+
+background-image: none !important
+}
+
+
+
+.NewsletterPopup{
+	background-color: #053266 !important;
+  	text-align: left !important;
+}
+
+.NewsletterPopup .Button{
+  color: #053266 !important;
+}
+
+.NewsletterPopup .Button:hover{
+  color: white !important;
+}
+
+
+h2.NewsletterPopup__Heading.Heading.u-h2{
+  
+    letter-spacing: 0.4px !important;
+    font-size: 22px !important;
+}
+
+
+h2.SectionHeader__Heading.SectionHeader__Heading--emphasize.Heading.u-h1{
+  
+  font-size: 54px !important;
+  line-height: 54px !important;
+  letter-spacing: 0 !important;
+}
+
+h2.SectionHeader__Heading.Heading.u-h1{
+  font-size: 42px !important;
+  line-height: 42px !important;
+  letter-spacing: 0 !important;
+}
+
+.SectionHeader__Description.Rte p{
+  font-size: 16px !important;
+  
+}
+
+h2.ProductItem__Title.Heading{
+	font-size: 14px !important;
+  	
+}
+
+span.ProductItem__Price.Price.Text--subdued {
+    font-size: 14px !important;
+}
+
+
+
+
+
+@media screen and (min-width: 1160px){
+#shopify-section-1596546689384 .ImageHero__ContentOverlay{
+  
+  background: transparent !important;
+ }
+  
+  
+  }
+
+
+
+@media screen and (min-width: 641px){
+h1.SectionHeader__Heading.Heading.u-h1{
+  
+  font-size: 28px !important;
+ }
+  
+  
+  }
+
+
+@media screen and (min-width: 641px){
+  a.Heading.Link.Link--primary.Text--subdued.u-h8{
+    
+  font-size: 12px !important;
+  
+  }
+
+}
+
+
+
+
+
+.ButtonGroup__Item.Button{
+   font-family: "HyundaiSansHead-Bold" !important;
+  font-size 14px !important;
+  letter-spacing: 0.5 !important;
+  
+}
+
+.shopify-policy__title{
+	margin-bottom: 50px;
+}
+
+
+.shopify-section--slideshow:before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 200px 200px;
+  border-color: transparent transparent red transparent;
+}
+
+#shopify-section-1597405014510 {
+	background-color: #043266;
+  color: #fff:
+    
+
+}
+
+
+/*Fixes*/ 
+
+.Button::before, 
+.shopify-payment-button__button--unbranded::before,
+#shopify-product-reviews .spr-summary-actions-newreview::before,
+#shopify-product-reviews .spr-button-primary:not(input)::before,
+#shopify-product-reviews input.spr-button-primary::before,
+#shopify-product-reviews .spr-pagination-prev>a::before,
+#shopify-product-reviews .spr-pagination-next>a::before {
+    left: -0.5px;
+    top: -0.5px;
+    right: 0;
+    bottom: 0;
+    width: 100.5%;
+    height: 102%;
+}
+
+#contact_form .Button::before {
+    width: 100% !important;
+
+}
+
+.ProductForm .Button::before {
+	width: 100.2% !important;
+}
+
+
+
+.CollectionItem__Image{
+
+	width: 102%;
+    height: 102%;
+}
+
+.Header__LinkSpacer::after {
+
+  border-bottom: 2px solid #e63312 !important;
+
+}
+
+
+.a-inline-link {
+  
+  color: #6a6a6a;
+  text-decoration: underline;
+  -webkit-text-decoration-color: rgba(106,106,106,0.6);
+  text-decoration-color: rgba(106,106,106,0.6);
+  text-underline-position: under;
+  transition: color 0.2s ease-in-out, -webkit-text-decoration-color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, text-decoration-color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, text-decoration-color 0.2s ease-in-out, -webkit-text-decoration-color 0.2s ease-in-out;
+
+}
+
+.a-inline-link:hover{
+    color: #000;
+    -webkit-text-decoration-color: rgba(0,0,0,0.6);
+    text-decoration-color: rgba(0,0,0,0.6);
+}
+
+.a-inline-link.no-decoration{
+	text-decoration: none;
+}
+
+
+.SectionHeader__Description.WelcomeCustomer{
+  font-family: "HyundaiSansHead-Bold" !important;
+   margin-bottom: 5px;
+}
+
+.SectionHeader__Heading.Heading.u-h1.myAccount{
+  font-size: 24px !important;
+  letter-spacing: 0.2px;
+  text-transform: initial;
+}
+
+
+
+.shippingAvailableList{
+  	margin-top: 25px;
+	display: flex;
+	flex-direction: column;
+  	border-top: 1px solid #d9d9d9;
+  	padding-top: 20px;
+}
+
+.shippingAvailableItem{
+  	font-family: "HyundaiSansHead-Bold" !important;
+    font-size: 13px;
+  	display: block;
+	margin-bottom: 0;
+  	color: black;
+}
+
+.statusIcon{
+     border-radius: .5625rem;
+    margin: 0 .3125rem 0 0;
+    width: 7px;
+    height: 7px;
+    line-height: 7px;
+    display: inline-block;
+    position: relative;
+  	
+
+}
+
+.statusIcon.available{
+	background-color: #42a21f;
+}
+
+
+.ProductItem__LabelList{
+  display: flex;
+
+}
+
+
+.ProductItem__Label{
+  line-height: 15px;
+  background-color: transparent;
+  margin-right: 8px;
+  padding: 4px 6px;
+
+}
+
+.ProductItem__Label.ProductItem__Label--onSale{
+  
+  background-color: #E63312;
+  color: white;
+
+}
+
+.ProductItem__Label--soldOut{
+  background-color: #b1b1b1;
+  color: white;
+}
+
+
+.ProductItem__Label.available{
+
+  background-color: #42a21f;
+  color: white;
+  
+}
+
+.ProductItem__Label.customizable{
+
+  background-color: #8B008B ;
+  color: white;
+  
+}
+
+.ProductItem__Label.new{
+  background-color: black;
+  color: white;
+  
+}
+
+}
+
+.ProductItem__Label.coming{
+	
+  background-color: #AACAE6;
+  color: white;
+  
+}
+
+.ProductItem__Label.coming{
+  background-color: #03eaea;
+  color: white;
+  
+}
+
+.ProductItem__Label.special{
+  background-color: #03eaea;
+  color: white;
+  
+}
+
+/* DELETE ON SALE*/
+
+
+
+
+
+
+
+
+
+
+
+/*EMAIL*/
+
+
+.shopify-email-marketing-confirmation__container{
+	padding: 60px 0;
+}
+
+
+
+
+
+
+
+/*Fixes*/ 
+
+
+#shopify-section-1597405014510 h2 {
+  
+  font-size: 54px !important;
+  line-height: 54px !important;
+  letter-spacing: 0 !important;
+  color: #fff;
+  position: relative;
+  
+    margin-bottom: 10px;
+}
+
+#shopify-section-1597405014510 p {
+
+  color: #fff;
+}
+
+#shopify-section-1597405014510 .ButtonGroup__Item {
+margin: 0 
+}
+
+#shopify-section-1597405014510 .Button     {
+  color: #ffffff;
+    border-color: #A2CBE9;
+}
+#shopify-section-1597405014510 .Button:before     {
+  
+    background-color: #A2CBE9;
+}
+
+#shopify-section-1597405014510 .SectionHeader__Heading.Heading.u-h1:before {
+content: '';
+    left: -160px;
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: block;
+    width: 200px;
+    height: 123px;
+  background-image: url('https://cdn.shopify.com/s/files/1/0450/8562/2427/files/Illustration.svg?v=1597413167');
+  
+  
+}
+
+
+.CollectionItem__Content {
+
+    top: 50px;
+
+}
+
+#section-1597254841489 .CollectionItem .Heading, #section-1597254841489 .flickity-page-dots {
+  color: #000 !important;
+}
+
+#shopify-section-1597254953321 {
+  background-color: #FAFAFA
+}
+
+.CollectionItem__Content header.SectionHeader {
+
+height: 100%;
+    display: flex;
+    flex-direction: column;
+  
+}
+
+.SectionHeader__ButtonWrapper {
+  margin-top: auto;
+    display: inline-block;
+}
+
+
+
+/*
+.ProductItem {
+
+	background: #fff;
+  	padding: 30px;
+}
+*/
+
+.CollectionItem__Content h2.SectionHeader__Heading.SectionHeader__Heading--emphasize.Heading.u-h1 {
+
+  
+  font-size: 44px !important;
+    line-height: 44px !important;
+}
+
+
+@media screen and (min-width: 1140px){
+  	
+  .Header__FlexItem.Header__FlexItem--fill{
+ 	justify-content:  center !important;
+}
+  
+
+}
+
+
+@media (max-width: 500px) {
+  
+  h2.SectionHeader__Heading.SectionHeader__Heading--emphasize.Heading.u-h1{
+
+    font-size: 32px !important;
+    line-height: 30px !important;
+    letter-spacing: 0 !important;
+  }
+  
+}
+
+
+.shopify-policy__container {
+
+  padding: 80px 0;
+  
+
+}
+
+
+
+.shopify-policy__container h1 {
+
+ font-size: 40px;
+  line-height: 1em;
+
+}
+
+
+#shopify-section-1596546689384 .SectionHeader {
+
+	text-align: left;
+  
+}
+
+
+#shopify-section-1596546689384 .ImageHero {
+
+    justify-content: left;
+
+}
+
+#shopify-section-1596546689384  .SectionHeader__Description {
+  margin-left: 0;
+}
+
+#shopify-section-1596546689384 .ImageHero__ContentOverlay {
+	padding: 80px;
+    padding-left: 200px;
+    background: #073265;
+}
+
+@media screen and (max-width: 1380px){
+  
+h2.SectionHeader__Heading.Heading.u-h1::before{
+
+	display: none !important;
+  }
+}
+
+
+
+
+
+
+#shopify-section-1596546689384 .SectionHeader__Heading.Heading.u-h1:before {
+content: '';
+    left: 50px;
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: block;
+    width: 200px;
+    height: 123px;
+  background-image: url('https://cdn.shopify.com/s/files/1/0450/8562/2427/files/Illustration.svg?v=1597413167');
+  
+  
+}
+
+
+#shopify-section-1596546689384 .Newsletter .Form__Input {
+    min-width: 255px;
+    width: 255px;
+  
+}
+
+@media screen and (min-width: 1140px){
+  
+  .Header__MainNav{
+    margin-right: 0 !important;
+  }
+  
+  
+}
+
+
+@media (max-width: 500px) {
+
+#shopify-section-1596546689384 .ImageHero__ContentOverlay {
+    padding-left: 40px;
+}
+  
+  
+
+  #shopify-section-1596546689384 .SectionHeader__Heading.Heading.u-h1:before  {
+  
+    display: none;
+  }
+  
+}
+
+

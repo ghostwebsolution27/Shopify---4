@@ -1,0 +1,397 @@
+<section data-section-id="reset-password" data-section-type="reset-password">
+  <div class="Container">
+    <div class="PageContent PageContent--fitScreen PageContent--extraNarrow create-customer-form">
+      {%- form 'create_customer', name: 'create_customer', class: 'Form Form--spacingTight', id: 'create_customer' -%}
+      <header class="Form__Header">
+        <h1 class="Form__Title Heading u-h1">{{ 'customer.register.title' | t }}</h1>
+        <p class="Form__Legend">{{ 'customer.register.description' | t }}</p>
+      </header>
+
+      {%- if form.errors -%}
+      <div class="Form__Alert Alert Alert--error">
+        <ul class="Alert__ErrorList">
+          {%- for field in form.errors -%}
+          {%- if field == 'form' -%}
+          <li class="Alert__ErrorItem">{{ form.errors.messages[field] }}</li>
+          {%- else -%}
+          <li class="Alert__ErrorItem"><strong>{{ form.errors.translated_fields[field] }}</strong>
+            {{ form.errors.messages[field] }}</li>
+          {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+      {%- endif -%}
+
+      {%- if request.locale.iso_code == 'ja' -%}
+      <div class="Form__Item">
+        <input type="text" class="Form__Input" name="customer[last_name]"
+          aria-label="{{ 'customer.register.last_name' | t }}" placeholder="{{ 'customer.register.last_name' | t }}">
+        <label class="Form__FloatingLabel">{{ 'customer.register.last_name' | t }}</label>
+      </div>
+      <div class="Form__Item">
+        <input type="text" class="Form__Input" name="customer[first_name]"
+          aria-label="{{ 'customer.register.first_name' | t }}" placeholder="{{ 'customer.register.first_name' | t }}"
+          autofocus>
+        <label class="Form__FloatingLabel">{{ 'customer.register.first_name' | t }}</label>
+      </div>
+      {%- else -%}
+      <div class="Form__Item">
+        <input type="text" class="Form__Input" name="customer[first_name]"
+          aria-label="{{ 'customer.register.first_name' | t }}" placeholder="{{ 'customer.register.first_name' | t }}"
+          autofocus id="CustomerFormfirstname">
+        <label class="Form__FloatingLabel">{{ 'customer.register.first_name' | t }}</label>
+      </div>
+      <div class="Form__Item">
+        <input type="text" class="Form__Input" name="customer[last_name]"
+          aria-label="{{ 'customer.register.last_name' | t }}" placeholder="{{ 'customer.register.last_name' | t }}" id="CustomerFormlastname">
+        <label class="Form__FloatingLabel">{{ 'customer.register.last_name' | t }}</label>
+      </div>
+      {%- endif -%}
+
+      <div class="Form_Item" style="margin-bottom: 10px;">
+        <input type="checkbox" name="customer[note][B2BInquiry]" id="CustomerB2B" value="Registration as a B2B Customer" unchecked="unchecked" />
+        <label for="CustomerB2B">Register as a B2B Customer</label>
+        <div id="note-wrap" style="display:none;">
+          <h1 class="Form__Title Heading u-h1" style="text-align: left;"></h1>
+          <p class="Form__Legend" style="text-align: left;"><strong>Hyundai Motorsport - Merchandise Shop B2B
+              registration.</strong><br>
+            After the registration you will be displayed the retail prices until your account has been verified.<br><br>
+            <strong>We will validate your information and activate your account.</strong><br>
+            We will activate your account after verification. You will then receive a confirmation email.
+            From then on, you will be displayed your individual purchase prices on the item and overview pages.
+            Please note that the validation process can take up to one working day. We thank you for your understanding.
+          </p>
+          <div class="Form__Item">
+            <div class="Form__CheckboxWrapper">
+              <input type="radio" class="Form__Radio" name="customer[tags]" id="customer_tags1" value="affiliates_stage">
+              {% render 'icon' with 'radio' %}
+              <label for="customer_tags1">Hyundai Affiliate, Subsidiary or Distributor</label>
+            </div>
+          </div>
+          <div class="Form__Item">
+            <div class="Form__CheckboxWrapper">
+              <input type="radio" class="Form__Radio" name="customer[tags]" id="customer_tags2" value="dealer_stage">
+              {% render 'icon' with 'radio' %}
+              <label for="customer_tags2">Hyundai Dealer</label>
+            </div>
+          </div>
+          <div class="Form__Item">
+            <input type="text" class="Form__Input" name="customer[note][CompanyName]" id="CustomerFormCompanyName"
+              placeholder="Company Name">
+            <label for="CustomerFormCompanyName" class="Form__FloatingLabel">Company Name</label>
+          </div>
+          <div class="Form__Item">
+            <input type="text" class="Form__Input" name="customer[note][Company-Department]"
+              id="CustomerFormCompanyDepartment" placeholder="Department" autofocus>
+            <label for="CustomerFormCompanyDepartment" class="Form__FloatingLabel">Department</label>
+          </div>
+          <div class="Form__Item">
+            <input type="text" class="Form__Input" name="customer[note][VatID]" id="CustomerFormVatID"
+              placeholder="Vat ID" autofocus>
+            <span class="vatid-help-text hide">Make sure you entered VAT ID correctly.</span>
+            <label for="CustomerFormVatID" class="Form__FloatingLabel">Vat ID</label>
+          </div>
+          <div class="Form__Item">
+            <input type="text" class="Form__Input" name="customer[note][Address]" id="CustomerFormAddress"
+              placeholder="Address" autofocus>
+            <label for="CustomerFormAddress" class="Form__FloatingLabel">Address</label>
+          </div>
+          <div class="Form__Item">
+            <input type="text" class="Form__Input" name="customer[note][City]" id="CustomerFormCity" placeholder="City"
+              autofocus>
+            <label for="CustomerFormCity" class="Form__FloatingLabel">City</label>
+          </div>
+          <div class="Form__Group">
+            <div class="Form__Item">
+              <div class="Form__Select Select Select--primary">
+                {%- render 'icon' with 'select-arrow' -%}
+                <select name="customer[note][Country]" id="CustomerFormCountry" title="{{ 'customer.addresses.country' | t }}">{{ all_country_option_tags }}</select>
+              </div>
+            </div>
+            <div class="Form__Item">
+              <input type="text" class="Form__Input" id="CustomerFormZip" name="customer[note][ZipCode]" value="{{ form.zip }}"
+                placeholder="{{ 'customer.addresses.zip' | t }}" aria-label="{{ 'customer.addresses.zip' | t }}">
+              <label class="Form__FloatingLabel">{{ 'customer.addresses.zip' | t }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="Form__Item">
+        <input type="email" class="Form__Input" name="customer[email]" aria-label="{{ 'customer.register.email' | t }}"
+          placeholder="{{ 'customer.register.email' | t }}" required="required" id="customer_email">
+        <label class="Form__FloatingLabel">{{ 'customer.register.email' | t }}</label>
+      </div>
+      <div class="Form__Item">
+        <input type="password" class="Form__Input" name="customer[password]" id="customer_password"
+          aria-label="{{ 'customer.register.password' | t }}" placeholder="{{ 'customer.register.password' | t }}"
+          required="required">
+        <label class="Form__FloatingLabel">{{ 'customer.register.password' | t }}</label>
+      </div>
+      <div class="">
+        <label for="Newsletter"></label>
+        <input type="hidden" name="customer[accepts_marketing]" value="" />
+        <input type="checkbox" id="customer_newsletter" name="customer[accepts_marketing]" checked="checked" />
+        Subscribe to stay updated with new products and offers
+      </div>
+      <div class="">
+        <label for="CustomerDataProtection"></label>
+        <input required class="required" type="checkbox" id="CustomerFormDataProtection" name="customer[note][DataProtection]" value="I agree" />
+        I have read the <a class="a-inline-link" href="/policies/privacy-policy">data protection information</a>
+        <br />
+      </div>
+      <div class="Form__Item">
+        <label for="CustomerDataShared"></label>
+        <input required class="required" type="checkbox" id="CustomerFormDataProtection" name="customer[note][DataShared]" value="I agree" />
+        I consent to share my personal data with Hyundai Motorsport GmbH for marketing and promotional purposes</a>
+        <br />
+      </div>
+      <div class="submitfeedback hide Form__Item">
+        <span id="submit-feedback"></span>
+      </div>
+      <button type="submit" class="Form__Submit Button Button--primary Button--full">{{ 'customer.register.submit' | t }}</button>
+      {%- endform -%}
+    </div>
+
+    <div class="" style="display: none;">
+      <form id="main-form" class="vat-app-form" method="POST">
+        <input type="hidden" name="customer[addresses][company]" id="Company" >
+        <input type="hidden" name="customer[addresses][department]" id="Department" >
+        <input type="hidden" name="customer[first_name]" id="FirstName" autocapitalize="words" >
+        <input type="hidden" name="customer[last_name]" id="LastName" >
+        <input type="hidden" name="customer[email]" id="Email" autocapitalize="off">
+        <input type="hidden" name="customer[addresses][address1]" id="Address1" >
+        <input type="hidden" name="customer[addresses][address2]" id="Address2">
+        <input type="hidden" name="customer[addresses][city]" id="City" >
+        <input type="hidden" name="customer[addresses][zip]" id="ZIP" >
+        <select id="Country" >
+            <option value="">{{ 'b2b_registration.labels.country_select_default_text' | t }}</option>
+            <option value="AT">{{ "b2b_registration.country_names.country_name_austria" | t }}</option>
+            <option value="BE">{{ "b2b_registration.country_names.country_name_belgium" | t }}</option>
+            <option value="BG">{{ "b2b_registration.country_names.country_name_bulgaria" | t }}</option>
+            <option value="HR">{{ "b2b_registration.country_names.country_name_croatia" | t }}</option>
+            <option value="CY">{{ "b2b_registration.country_names.country_name_cyprus" | t }}</option>
+            <option value="CZ">{{ "b2b_registration.country_names.country_name_czech_republic" | t }}</option>
+            <option value="DK">{{ "b2b_registration.country_names.country_name_denmark" | t }}</option>
+            <option value="EE">{{ "b2b_registration.country_names.country_name_estonia" | t }}</option>
+            <option value="FI">{{ "b2b_registration.country_names.country_name_finland" | t }}</option>
+            <option value="FR">{{ "b2b_registration.country_names.country_name_france" | t }}</option>
+            <option value="DE">{{ "b2b_registration.country_names.country_name_germany" | t }}</option>
+            <option value="GR">{{ "b2b_registration.country_names.country_name_greece" | t }}</option>
+            <option value="HU">{{ "b2b_registration.country_names.country_name_hungary" | t }}</option>
+            <option value="IE">{{ "b2b_registration.country_names.country_name_ireland" | t }}</option>
+            <option value="IT">{{ "b2b_registration.country_names.country_name_italy" | t }}</option>
+            <option value="LV">{{ "b2b_registration.country_names.country_name_latvia" | t }}</option>
+            <option value="LT">{{ "b2b_registration.country_names.country_name_lithuania" | t }}</option>
+            <option value="LU">{{ "b2b_registration.country_names.country_name_luxemburg" | t }}</option>
+            <option value="MT">{{ "b2b_registration.country_names.country_name_malta" | t }}</option>
+            <option value="MC">{{ "b2b_registration.country_names.country_name_monaco" | t }}</option>
+            <option value="NL">{{ "b2b_registration.country_names.country_name_netherlands" | t }}</option>
+            <option value="PL">{{ "b2b_registration.country_names.country_name_poland" | t }}</option>
+            <option value="PT">{{ "b2b_registration.country_names.country_name_portugal" | t }}</option>
+            <option value="RO">{{ "b2b_registration.country_names.country_name_romania" | t }}</option>
+            <option value="SK">{{ "b2b_registration.country_names.country_name_slovakia" | t }}</option>
+            <option value="SI">{{ "b2b_registration.country_names.country_name_slovenia" | t }}</option>
+            <option value="ES">{{ "b2b_registration.country_names.country_name_spain" | t }}</option>
+            <option value="SE">{{ "b2b_registration.country_names.country_name_sweden" | t }}</option>
+            <option value="GB">{{ "b2b_registration.country_names.country_name_united_kingdom" | t }}</option>
+        </select>
+        <input type="hidden" id="CountryVal" name="customer[countrycode]">
+        <input type="hidden" name="customer[phone]" id="Phone">
+        <small>{{ 'b2b_registration.labels.gdpr_html' | t }}</small>
+        <input type="hidden" name="customer[tags]" id="CustomerTags">
+        <input required  type="hidden" id="CustomerFormDataProtection" name="customer[note][DataProtection]" value="I agree" />
+        <input required  type="hidden" id="CustomerFormDataShared" name="customer[note][DataShared]" value="I agree" />
+        <input type="hidden" name="customer[accepts_marketing]" id="AcceptsMarketing" value="" />
+        <input type="hidden" name="customer_vatid" id="validatedVatId">
+        <input type="hidden" name="store" value="{{ shop.permanent_domain }}">
+     </form>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      $('#CustomerFormVatID').keydown(function() {
+        if ($(this).val() != '') {
+          $(this).next().addClass('hide');
+        }
+      });
+
+      $('#CustomerB2B').change(function() {
+        if ($(this).is(':checked')) {
+          $('#customer_password').removeAttr('required').addClass('hide');
+        } else {
+          $('#customer_password').removeClass('hide').attr('required', 'required');
+        }
+      });
+
+      $("#create_customer").validate({
+        errorClass: 'validation_errors',
+        rules: {
+          "customer[email]": {
+              required: true,
+              email: true
+          },
+          "customer[password]": {
+              required: true
+          },
+          "customer[note][DataProtection]": {
+            required: true
+          },
+          "customer[note][DataShared]": {
+            required: true
+          }
+        },
+        errorPlacement: function (error, element) {
+          if (element.attr("name") == "customer[note][DataProtection]" || element.attr("name") == "customer[note][DataShared]") {
+            error.appendTo(element.parent());
+          } else {
+            error.insertAfter(element)
+          }
+        },
+        messages: {
+        },
+        submitHandler: (form) => {
+          let vatId = $('.create-customer-form #CustomerFormVatID').val();
+
+          if ($('.create-customer-form #CustomerB2B').is(':checked')) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onload = function(){}
+            xhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                var response = JSON.parse(this.responseText);
+
+                if(response.error)
+                {
+                  if (response.reason == "email - has already been taken") {
+                      document.getElementById("submit-feedback").innerHTML = "{{ 'b2b_registration.messages.registration_email_taken' | t }}";
+                      $('.submitfeedback').removeClass('hide').addClass('warning');
+                  } else {
+                      document.getElementById("submit-feedback").innerHTML = "{{ 'b2b_registration.messages.registration_failed_html' | t }}" + " (Error message from Server: " + response.reason + ")";  
+                      $('.submitfeedback').removeClass('hide').addClass('warning');
+                  }
+                } else {
+                  document.getElementById("submit-feedback").innerHTML = "{{ 'b2b_registration.messages.registration_successful' | t }}";
+                  $('.submitfeedback').removeClass('hide').addClass('success');
+                }
+
+                setTimeout(() => {
+                  $('.submitfeedback').addClass('hide').removeClass('success').removeClass('warning');
+                }, 10000);
+              }
+            };
+            xhttp.open("POST", "https://{{ shop.domain }}/apps/b2b-customer-register/customer-register/?shop={{ shop.domain }}", true);
+
+            if ($('#customer_tags1').is(':checked')) {
+              $('#CustomerTags').val($('#customer_tags1').val());
+            }
+            if ($('#customer_tags2').is(':checked')) {
+              $('#CustomerTags').val($('#customer_tags2').val());
+            }
+            $('#Company').val($('#CustomerFormCompanyName').val());
+            $('#Department').val($('#CustomerFormCompanyDepartment').val());
+            $('#Address1').val($('#CustomerFormAddress').val());
+            $('#City').val($('#CustomerFormCity').val());
+            $('#ZIP').val($('#CustomerFormZip').val());
+            let countryName = $('#CustomerFormCountry').val();
+            $('#Country option').each(function() {
+              if (countryName == $(this).text()) {
+                $('#CountryVal').val($(this).val());
+              }
+            });
+            if ($('#customer_newsletter').is(':checked')) {
+              $('#AcceptsMarketing').val(1);
+            } else {
+              $('#AcceptsMarketing').val();
+            }
+            $('#Email').val($('#customer_email').val());
+            $('#FirstName').val($('#CustomerFormfirstname').val());
+            $('#LastName').val($('#CustomerFormlastname').val());
+            
+            xhttp.send(new FormData($('form#main-form').get(0)));
+
+            return false;
+          } else {
+            form.submit();
+          }
+        }
+      });
+
+      $('.create-customer-form').on('click', '.Form__Submit', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        let vatId = $('.create-customer-form #CustomerFormVatID').val();
+
+        if (vatId == '') {
+          $('.create-customer-form #create_customer').submit();
+        } else {
+          var xhttp = new XMLHttpRequest();
+    
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              var response = JSON.parse(this.responseText);
+              if(response.validation) {
+                $('#validatedVatId').val(vatId);
+                $('#customer_password').removeAttr('required').addClass('hide');
+                $('.create-customer-form #create_customer').submit();
+              } else {
+                $('#CustomerFormVatID').focus();
+                $('#CustomerFormVatID').next().removeClass("hide");
+              }
+            }
+          };
+          xhttp.open("GET", "https://{{ shop.domain }}/apps/b2b-customer-register/customer-register--check-vatid/?customer%5Bvatid%5D=" + document.getElementById('CustomerFormVatID').value , true);
+          xhttp.send();
+          
+          return false;
+        }
+      });
+
+      $('#CustomerB2B').change(function () {
+        $('#note-wrap').slideToggle('500');
+      });
+    });
+  </script>
+
+  <style>
+    #create_customer .vatid-help-text {
+      color: red;
+    }
+
+    #create_customer .vatid-help-text.hide {
+      display: none;
+    }
+
+    #create_customer label.validation_errors {
+      color: red;
+    }
+
+    #create_customer input.validation_errors {
+      border: 1px solid red;
+    }
+
+    .submitfeedback.hide {
+      display: none;
+    }
+
+    .submitfeedback {
+      padding: 5px 10px;
+    }
+
+    .submitfeedback.success {
+      background-color: #69af6f;
+    }
+
+    .submitfeedback.warning {
+      background-color: #ef8282;
+    }
+
+    #submit-feedback {
+      color: #ffffff;
+    }
+
+    #customer_password.hide {
+      display: none;
+    }
+  </style>
+</section>

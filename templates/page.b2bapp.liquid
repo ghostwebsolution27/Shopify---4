@@ -1,0 +1,285 @@
+<section data-section-id="reset-password" data-section-type="reset-password">
+  <div class="Container">
+    
+    <div class="PageContent PageContent--fitScreen PageContent--extraNarrow">
+      {% assign row_classes = "row form__row" %}
+{% assign label_classes = "" %}
+{% assign input_classes = "" %}
+{% assign submit_classes = "" %}
+{% assign column_classes = "form__column full col-xs-12" %}
+
+<h1>{{ page.title }}</h1>
+{% if page.content != blank %}<div class="rte">{{ page.content }}</div>{% endif %}
+
+<div class="form form-control form-b2bapp">
+
+   <form id="vat-form" onsubmit="javascript:return checkVatId(this);">
+      <div class="{{ row_classes }}">
+         <div class="{{ column_classes }}">
+            <h4 id="vat-id-label">{{ 'b2b_registration.labels.vat_id_html' | t: link: "/account/register" }}</h4>
+            <input type="text" name="customer_vatid" id="VATid" placeholder="VAT ID" class="{{ input_classes }}" autocapitalize="words" autofocus>
+            <input type="submit" id="vat-submit-button" class="btn {{ submit_classes }}" value="{{ 'b2b_registration.buttons.validate_vat_id_button_caption' | t }}">
+         </div>
+      </div>
+   </form>
+
+   <div id="b2b-handfree-form" class="hidden">
+      <form id="main-form" method="POST" onsubmit="javascript:return validateForm(this);">
+         
+         <div class="{{ row_classes }}">
+            <div class="{{ column_classes }}">
+               <label for="Company" class="{{ label_classes }}">{{ 'b2b_registration.labels.company' | t }}</label>
+               <input type="text" name="customer[addresses][company]" placeholder="{{ 'b2b_registration.labels.company' | t }}" class="{{ input_classes }}" id="Company" required>
+            </div>
+         </div>
+         
+         <div class="{{ row_classes }}">
+            <div class="{{ column_classes }}">
+               <label for="FirstName" class="{{ label_classes }}">{{ 'b2b_registration.labels.first_name' | t }}</label>
+               <input type="text" name="customer[first_name]" id="FirstName" placeholder="{{ 'b2b_registration.labels.first_name' | t }}" class="{{ input_classes }}" autocapitalize="words" required>
+            </div>
+         </div>
+         
+         <div class="{{ row_classes }}">
+            <div class="{{ column_classes }}">
+               <label for="LastName" class="{{ label_classes }}">{{ 'b2b_registration.labels.last_name' | t }}</label>
+               <input type="text" name="customer[last_name]" id="LastName" placeholder="{{ 'b2b_registration.labels.last_name' | t }}" class="{{ input_classes }}" required>
+            </div>
+         </div>
+         
+         <div class="{{ row_classes }}">
+            <div class="{{ column_classes }}">
+               <label for="Email" class="{{ label_classes }}">{{ 'b2b_registration.labels.email' | t }}</label>
+               <input type="email" name="customer[email]" id="Email" placeholder="{{ 'b2b_registration.labels.email' | t }}" class="{{ input_classes }}" required autocapitalize="off">
+            </div>
+         </div>
+         
+         <div class="{{ row_classes }}">
+            <div class="{{ column_classes }}">
+               <label for="Address1" class="{{ label_classes }}">{{ 'b2b_registration.labels.address1' | t }}</label>
+               <input type="text" name="customer[addresses][address1]" id="Address1" placeholder="{{ 'b2b_registration.labels.address1' | t }}" class="{{ input_classes }}" required>
+            </div>
+         </div>
+         
+         <div class="{{ row_classes }}">
+            <div class="{{ column_classes }}">
+               <label for="Address2" class="{{ label_classes }}">{{ 'b2b_registration.labels.address2' | t }}</label>
+               <input type="text" name="customer[addresses][address2]" id="Address2" placeholder="{{ 'b2b_registration.labels.address2' | t }}" class="{{ input_classes }}">
+            </div>
+         </div>
+         
+         <div class="{{ row_classes }}">
+            <div class="{{ column_classes }}">
+               <label for="City" class="{{ label_classes }}">{{ 'b2b_registration.labels.city' | t }}</label>
+               <input type="text" name="customer[addresses][city]" id="City" placeholder="{{ 'b2b_registration.labels.city' | t }}" class="{{ input_classes }}" required>
+            </div>
+         </div>
+         
+         <div class="{{ row_classes }}">
+            <div class="{{ column_classes }}">
+               <label for="ZIP" class="{{ label_classes }}">{{ 'b2b_registration.labels.zip' | t }}</label>
+               <input type="text" name="customer[addresses][zip]" id="ZIP" placeholder="{{ 'b2b_registration.labels.zip' | t }}" class="{{ input_classes }}" required>
+            </div>
+         </div>
+         
+         <div class="{{ row_classes }}">
+            <div class="{{ column_classes }}">
+               <label for="Country" class="{{ label_classes }}">{{ 'b2b_registration.labels.country' | t }}</label>
+               <select name="customer[countrycode]" id="Country" class="{{ input_classes }}" required>
+                  <option value="">{{ 'b2b_registration.labels.country_select_default_text' | t }}</option>
+                  <option value="AT">{{ "b2b_registration.country_names.country_name_austria" | t }}</option>
+                  <option value="BE">{{ "b2b_registration.country_names.country_name_belgium" | t }}</option>
+                  <option value="BG">{{ "b2b_registration.country_names.country_name_bulgaria" | t }}</option>
+                  <option value="HR">{{ "b2b_registration.country_names.country_name_croatia" | t }}</option>
+                  <option value="CY">{{ "b2b_registration.country_names.country_name_cyprus" | t }}</option>
+                  <option value="CZ">{{ "b2b_registration.country_names.country_name_czech_republic" | t }}</option>
+                  <option value="DK">{{ "b2b_registration.country_names.country_name_denmark" | t }}</option>
+                  <option value="EE">{{ "b2b_registration.country_names.country_name_estonia" | t }}</option>
+                  <option value="FI">{{ "b2b_registration.country_names.country_name_finland" | t }}</option>
+                  <option value="FR">{{ "b2b_registration.country_names.country_name_france" | t }}</option>
+                  <option value="DE">{{ "b2b_registration.country_names.country_name_germany" | t }}</option>
+                  <option value="GR">{{ "b2b_registration.country_names.country_name_greece" | t }}</option>
+                  <option value="HU">{{ "b2b_registration.country_names.country_name_hungary" | t }}</option>
+                  <option value="IE">{{ "b2b_registration.country_names.country_name_ireland" | t }}</option>
+                  <option value="IT">{{ "b2b_registration.country_names.country_name_italy" | t }}</option>
+                  <option value="LV">{{ "b2b_registration.country_names.country_name_latvia" | t }}</option>
+                  <option value="LT">{{ "b2b_registration.country_names.country_name_lithuania" | t }}</option>
+                  <option value="LU">{{ "b2b_registration.country_names.country_name_luxemburg" | t }}</option>
+                  <option value="MT">{{ "b2b_registration.country_names.country_name_malta" | t }}</option>
+                  <option value="MC">{{ "b2b_registration.country_names.country_name_monaco" | t }}</option>
+                  <option value="NL">{{ "b2b_registration.country_names.country_name_netherlands" | t }}</option>
+                  <option value="PL">{{ "b2b_registration.country_names.country_name_poland" | t }}</option>
+                  <option value="PT">{{ "b2b_registration.country_names.country_name_portugal" | t }}</option>
+                  <option value="RO">{{ "b2b_registration.country_names.country_name_romania" | t }}</option>
+                  <option value="SK">{{ "b2b_registration.country_names.country_name_slovakia" | t }}</option>
+                  <option value="SI">{{ "b2b_registration.country_names.country_name_slovenia" | t }}</option>
+                  <option value="ES">{{ "b2b_registration.country_names.country_name_spain" | t }}</option>
+                  <option value="SE">{{ "b2b_registration.country_names.country_name_sweden" | t }}</option>
+                  <option value="GB">{{ "b2b_registration.country_names.country_name_united_kingdom" | t }}</option>
+               </select>
+            </div>
+         </div>
+         
+         <div class="{{ row_classes }}">
+            <div class="{{ column_classes }}">
+               <label for="Phone" class="{{ label_classes }}">{{ 'b2b_registration.labels.phone' | t }}</label>
+               <input type="text" name="customer[phone]" id="Phone" placeholder="{{ 'b2b_registration.labels.phone' | t }}" class="{{ input_classes }}">
+            </div>
+         </div>
+         
+         <div class="{{ row_classes }}" id="gdpr">
+            <div class="{{ column_classes }}">
+               <small>{{ 'b2b_registration.labels.gdpr_html' | t }}</small>
+            </div>
+         </div>
+
+         <p id="submit-feedback" class="form-message hidden"></p>
+         
+         <input type="hidden" name="customer_vatid" id="validatedVatId">
+         <input type="hidden" name="store" value="{{ shop.permanent_domain }}">
+         <button id="submitbutton" type="submit" name="submit" value="{{ 'b2b_registration.buttons.submit_form_caption' | t }}" class="btn {{ submit_classes }}">{{ 'b2b_registration.buttons.submit_form_caption' | t }}</button>
+         
+      </form>
+   </div>
+</div>
+
+<script>
+var vatIdIsValid = false;
+
+function checkVatId(t) {
+   document.getElementById('VATid').value = document.getElementById('VATid').value.trim();
+   if(document.getElementById('VATid').value == "") {
+      vatIdIsValid = false;
+      document.getElementById("vat-id-label").innerHTML = "{{ 'b2b_registration.messages.invalid_vat_id' | t | strip_newlines | escape }}";
+      document.getElementById("vat-id-label").classList.add('error');
+      document.getElementById("validatedVatId").removeAttribute("value");
+      prefillFormFields("");
+      return false;
+   }
+   var xhttp = new XMLHttpRequest();
+   xhttp.onreadystatechange = function() {
+      console.log(this.readyState + " " + this.status);
+      if (this.readyState == 4 && this.status == 200) {
+         console.log(this);
+         var response = JSON.parse(this.responseText);
+         if(response.validation) {
+            vatIdIsValid = true; // so we can submit the main form
+            document.getElementById("vat-id-label").innerHTML = "{{ 'b2b_registration.messages.valid_vat_id' | t | strip_newlines | escape }}";
+            document.getElementById("validatedVatId").value = document.getElementById("VATid").value; // store VAT ID in hidden field in main form
+            document.getElementById("VATid").setAttribute("disabled","disabled");
+            document.getElementById("vat-submit-button").classList.add('hidden');
+            document.getElementById("b2b-handfree-form").classList.remove('hidden');
+            document.getElementById("vat-id-label").classList.remove('error');
+            prefillFormFields(response);
+         } else {
+            vatIdIsValid = false;
+            document.getElementById("vat-id-label").innerHTML = "{{ 'b2b_registration.messages.invalid_vat_id' | t | strip_newlines | escape }}";
+            document.getElementById("validatedVatId").removeAttribute("value");
+            document.getElementById("vat-submit-button").classList.remove('hidden');
+            document.getElementById("b2b-handfree-form").classList.add('hidden');
+            document.getElementById("vat-id-label").classList.add('error');
+            prefillFormFields("");
+         }
+      }
+   };
+   xhttp.open("GET", "https://{{ shop.domain }}/apps/b2b-customer-register/customer-register--check-vatid/?customer%5Bvatid%5D=" + document.getElementById('VATid').value , true);
+   xhttp.send();
+
+   return false; // never submit form
+}
+function prefillFormFields(r) {
+   if(r) {
+      document.getElementById('Company').value = r.company.replace('Business Name: ', '').replace('---', '');
+      document.getElementById('Country').value = r.state.replace('Member State: ', '');
+   } else {
+      // Clear form fields
+      document.getElementById('main-form').reset();
+   }
+}
+
+function validateForm(f) {
+   if(vatIdIsValid) {
+      document.getElementById("submitbutton").innerHTML = '<div id="loading"></div>';
+
+      var xhttp = new XMLHttpRequest();
+      xhttp.onload = function(){ console.log(xhttp.responseText); }
+      xhttp.onreadystatechange = function() {
+         console.log(this.readyState + " " + this.status);
+         if (this.readyState == 4 && this.status == 200) {
+            console.log(this);
+            var response = JSON.parse(this.responseText);
+            if(response.error)
+            {
+               document.getElementById("submitbutton").innerHTML = "{{ 'b2b_registration.buttons.submit_form_caption' | t }}";
+               if (response.reason == "email - has already been taken") {
+                  document.getElementById("submit-feedback").innerHTML = "{{ 'b2b_registration.messages.registration_email_taken' | t }}";
+               } else {
+                  document.getElementById("submit-feedback").innerHTML = "{{ 'b2b_registration.messages.registration_failed_html' | t }}" + " (Error message from Server: " + response.reason + ")";  
+               }
+               document.getElementById("submit-feedback").classList.add('error');
+               document.getElementById("submit-feedback").classList.remove("hidden");
+            } else {
+               document.getElementById("gdpr").classList.add("hidden");
+               document.getElementById("submitbutton").classList.add("hidden");
+               document.getElementById("submit-feedback").innerHTML = "{{ 'b2b_registration.messages.registration_successful' | t }}";
+               document.getElementById("submit-feedback").classList.remove('error');
+               document.getElementById("submit-feedback").classList.remove("hidden");
+            }
+         }
+      };
+      xhttp.open("POST", "https://{{ shop.domain }}/apps/b2b-customer-register/customer-register/?shop={{ shop.domain }}", true);
+      xhttp.send(new FormData(f));
+
+      return false;
+   } else {
+      document.getElementById("submit-feedback").innerHTML = "{{ 'b2b_registration.messages.no_vat_id_entered' | t }}";
+      document.getElementById("submit-feedback").classList.add('error');
+      document.getElementById("submit-feedback").classList.remove("hidden");
+      return false;
+   }
+}
+</script>
+
+<style type="text/css">
+.hidden { display: none !important; }
+.error { color: red; }
+@-webkit-keyframes rotate {
+	from { -webkit-transform: rotate(0deg); }
+	to {  -webkit-transform: rotate(360deg); }
+}
+#vat-id-label a {text-decoration:underline}
+#loading {
+	display: inline-block;
+	border: 1px solid #fff;
+	border-right: 0; border-bottom: 0;
+	-webkit-border-radius: 100px;
+	height: 10px; width: 10px;
+	margin: auto 40px;
+	-webkit-transition: all 0.5s ease-in;
+	-webkit-animation-name:             rotate; 
+	-webkit-animation-duration:         1.0s; 
+	-webkit-animation-iteration-count:  infinite;
+	-webkit-animation-timing-function: linear;
+}
+</style>
+    
+   
+    
+    
+      
+    </div>
+  </div>
+  
+  <script>
+  $(document).ready(function() {
+
+$('#CustomerB2B').change(function() {
+
+$('#note-wrap').slideToggle('500');
+
+});
+
+});
+  
+  </script>
+</section>

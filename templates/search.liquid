@@ -1,0 +1,169 @@
+<section data-section-id="search" data-section-type="search">
+  {%- if search.performed == false or search.results_count == 0 -%}
+    <div class="EmptyState">
+      <div class="Container">
+        <h1 class="EmptyState__Title Heading u-h5">{{ 'search.general.title' | t }}</h1>
+
+        {%- if search.performed -%}
+          {%- assign filtered_terms = search.terms | replace: '*', '' -%}
+          <p>{{ 'search.general.no_results_with_terms' | t: terms: filtered_terms }}</p>
+        {%- else -%}
+          <p>{{ 'search.general.content' | t }}</p>
+        {%- endif -%}
+
+        <div class="EmptyState__Action" >
+          <form method="GET" action="{{ routes.search_url }}" class="Form">
+            <input class="Form__Input" type="text" name="q" autocomplete="off" autocorrect="off" aria-label="{{ 'search.general.input_placeholder' | t }}" placeholder="{{ 'search.general.input_placeholder' | t }}">
+            <input type="hidden" name="type" value="product">
+          </form>
+        </div>
+      </div>
+    </div>
+  {%- else -%}
+    {%- paginate search.results by 36 -%}
+      <header class="PageHeader">
+        <div class="Container">
+          <div class="SectionHeader SectionHeader--center">
+            <h1 class="SectionHeader__Heading Heading u-h1">{{ 'search.general.title' | t }}</h1>
+
+            <div class="SectionHeader__Description">
+              {%- assign filtered_terms = search.terms | replace: '*', '' -%}
+              {{- 'search.general.results_with_terms_count' | t: count: search.results_count, terms: filtered_terms -}}
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {%- if search.types contains 'product' -%}
+        <div class="ProductList ProductList--grid Grid" data-mobile-count="2" data-desktop-count="4">
+          {%- for result in search.results -%}
+{% comment %} Wholesale_Club_Result_Prices Start {% endcomment %}
+{% assign base_product = result %}
+{% assign base_variant = result.selected_or_first_available_variant %}
+
+{% if shop.metafields.sawholesale['base_price'] == blank %}
+  {% assign base_price = 'compare_at_price' %}
+{% else %}
+  {% assign base_price = shop.metafields.sawholesale['base_price'] %}
+{% endif %}
+
+{% assign saw_discount = 0 %}{% assign saw_has_discount = false %}
+
+{% if customer.tags != blank %}
+  {% for mf in base_product.metafields.sawholesale %}
+    {% capture product_customer_tag %}{{ mf | first | replace: 'discount_', '' }}{% endcapture %}
+    {% if customer.tags contains product_customer_tag %}
+      {% assign saw_has_discount = true %}
+      {% assign discount_key = product_customer_tag | prepend: 'discount_' %}
+      {% assign price_key = product_customer_tag | prepend: 'price_' %}
+      {% assign saw_discount = base_product.metafields.sawholesale[discount_key] | divided_by: 100.0 %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% assign saw_discount = 1 | minus: saw_discount %}
+
+{% if base_price == 'price' or base_variant.compare_at_price == blank  or base_variant.compare_at_price == 0 or base_variant.compare_at_price < base_variant.price %}
+  {% assign saw_variant_compare_at_price = base_variant.price %}
+{% else %}
+  {% assign saw_variant_compare_at_price = base_variant.compare_at_price %}
+{% endif %}
+
+{% assign cpe = shop.metafields.sawholesale['cpe'] | default: "true" %}
+{% if base_variant.metafields.sawholesale[price_key] != blank and cpe == "true" %}
+  {% assign saw_variant_price = base_variant.metafields.sawholesale[price_key] %}
+{% else %}
+  {% assign saw_variant_price = saw_variant_compare_at_price | times: saw_discount %}
+{% endif %}
+
+{% if saw_has_discount == false or saw_variant_price >= saw_variant_compare_at_price %}
+  {% assign WCResult_Price = result.price %}
+  {% assign WCResult_CompareAtPrice = result.compare_at_price %}
+{% else %}
+  {% assign WCResult_Price = saw_variant_price %}
+  {% assign WCResult_CompareAtPrice = saw_variant_compare_at_price %}
+{% endif %}
+{% comment %} Wholesale_Club_Result_Prices End {% endcomment %}
+
+            <div class="Grid__Cell 1/2 1/3--tablet 1/4--lap-and-up">
+              {%- render 'product-item', product: result, show_labels: true, show_product_info: true, show_vendor: false -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <div class="ArticleListWrapper">
+          <div class="ArticleList Grid Grid--m">
+            {%- for result in search.results -%}
+{% comment %} Wholesale_Club_Result_Prices Start {% endcomment %}
+{% assign base_product = result %}
+{% assign base_variant = result.selected_or_first_available_variant %}
+
+{% if shop.metafields.sawholesale['base_price'] == blank %}
+  {% assign base_price = 'compare_at_price' %}
+{% else %}
+  {% assign base_price = shop.metafields.sawholesale['base_price'] %}
+{% endif %}
+
+{% assign saw_discount = 0 %}{% assign saw_has_discount = false %}
+
+{% if customer.tags != blank %}
+  {% for mf in base_product.metafields.sawholesale %}
+    {% capture product_customer_tag %}{{ mf | first | replace: 'discount_', '' }}{% endcapture %}
+    {% if customer.tags contains product_customer_tag %}
+      {% assign saw_has_discount = true %}
+      {% assign discount_key = product_customer_tag | prepend: 'discount_' %}
+      {% assign price_key = product_customer_tag | prepend: 'price_' %}
+      {% assign saw_discount = base_product.metafields.sawholesale[discount_key] | divided_by: 100.0 %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% assign saw_discount = 1 | minus: saw_discount %}
+
+{% if base_price == 'price' or base_variant.compare_at_price == blank  or base_variant.compare_at_price == 0 or base_variant.compare_at_price < base_variant.price %}
+  {% assign saw_variant_compare_at_price = base_variant.price %}
+{% else %}
+  {% assign saw_variant_compare_at_price = base_variant.compare_at_price %}
+{% endif %}
+
+{% assign cpe = shop.metafields.sawholesale['cpe'] | default: "true" %}
+{% if base_variant.metafields.sawholesale[price_key] != blank and cpe == "true" %}
+  {% assign saw_variant_price = base_variant.metafields.sawholesale[price_key] %}
+{% else %}
+  {% assign saw_variant_price = saw_variant_compare_at_price | times: saw_discount %}
+{% endif %}
+
+{% if saw_has_discount == false or saw_variant_price >= saw_variant_compare_at_price %}
+  {% assign WCResult_Price = result.price %}
+  {% assign WCResult_CompareAtPrice = result.compare_at_price %}
+{% else %}
+  {% assign WCResult_Price = saw_variant_price %}
+  {% assign WCResult_CompareAtPrice = saw_variant_compare_at_price %}
+{% endif %}
+{% comment %} Wholesale_Club_Result_Prices End {% endcomment %}
+
+              <div class="Grid__Cell 1/2--tablet 1/3--lap-and-up">
+                {%- if result.object_type == 'article' -%}
+                  {%- render 'article-item', article: result -%}
+                {%- elsif result.object_type == 'page' -%}
+                  <article class="ArticleItem">
+                    <div class="ArticleItem__Content">
+                      <h2 class="ArticleItem__Title Heading u-h2">
+                        <a href="{{ result.url }}">{{ result.title }}</a>
+                      </h2>
+
+                      <p class="ArticleItem__Excerpt">{{ result.content | strip_html | truncate: 150 }}</p>
+                      <a href="{{ article.url }}" class="ArticleItem__Link Link Link--underline">{{ 'blog.article.read_more' | t }}</a>
+                    </div>
+                  </article>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- render 'pagination', paginate: paginate -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</section>
